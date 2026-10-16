@@ -10,8 +10,8 @@ Pages HTML / CSS / JavaScript servies par un petit serveur Node.js (`server.js`)
 |---|---|
 | Couleur primaire | `#162E49` (bleu marine) |
 | Couleur secondaire | `#BFA169` (or) |
-| Titres | Montserrat (Google Fonts) |
-| Texte | Open Sans (Google Fonts) |
+| Titres | Montserrat (hébergée dans `public/assets/fonts/`) |
+| Texte | Open Sans (hébergée dans `public/assets/fonts/`) |
 
 Les couleurs sont définies une seule fois, en variables CSS, en haut de `assets/css/style.css`.
 
@@ -104,6 +104,14 @@ ORDER BY created_at DESC;
 -- marquer un message comme traité
 UPDATE contact_messages SET traite = true WHERE id = 1;
 ```
+
+## Sécurité
+
+- Requêtes SQL paramétrées, validation et limite de taille des champs, champ anti-robot, 5 envois max. par IP toutes les 10 minutes (10 000 adresses suivies au maximum).
+- En-têtes : `Content-Security-Policy` (aucune ressource externe autorisée), `Strict-Transport-Security` (en HTTPS), `Permissions-Policy`, `X-Frame-Options`, `X-Content-Type-Options`, `Referrer-Policy`, `Cross-Origin-Opener-Policy`.
+- Aucune ressource tierce : polices hébergées localement, pas de cookie ni de traceur.
+- Le conteneur tourne avec un utilisateur non administrateur ; seul `public/` est servi.
+- Ne publiez pas de port pour l'application dans Dokploy (passez uniquement par **Domains** / Traefik), sinon l'adresse IP utilisée pour la limite d'envois peut être falsifiée.
 
 ## Lancer en local
 

@@ -177,9 +177,7 @@ def page(filename, title, desc, content, active=None):
   <link rel="icon" type="image/png" sizes="32x32" href="assets/img/favicon-32.png">
   <link rel="icon" type="image/png" sizes="512x512" href="assets/img/favicon-512.png">
   <link rel="apple-touch-icon" href="assets/img/apple-touch-icon.png">
-  <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@500;600;700&amp;family=Open+Sans:wght@400;600&amp;display=swap" rel="stylesheet">
+  <link rel="preload" href="assets/fonts/montserrat-latin.woff2" as="font" type="font/woff2" crossorigin>
   <link rel="stylesheet" href="assets/css/style.css">
 </head>
 <body>
@@ -821,8 +819,8 @@ contact = page_hero("Contacts", "Parlons de votre projet",
 
         <div class="form-card reveal reveal-delay-1">
           <span class="eyebrow">Formulaire</span>
-          <h2 style="font-size:1.6rem">Demande de devis ou d'information</h2>
-          <p class="muted">Les champs marqués d'un <span style="color:var(--secondary-600)">*</span> sont obligatoires.</p>
+          <h2 class="form-title">Demande de devis ou d'information</h2>
+          <p class="muted">Les champs marqués d'un <span class="req">*</span> sont obligatoires.</p>
           <!-- Les messages sont envoyés à l'API du serveur (server.js) et enregistrés dans PostgreSQL. -->
           <form id="contact-form" novalidate data-endpoint="/api/contact" data-mailto="{EMAIL}">
             <div class="form-grid">
@@ -899,10 +897,10 @@ legal = page_hero("Informations", "Mentions légales", "Informations légales re
         <p>L'ensemble des contenus de ce site (textes, logos, images, éléments graphiques) est la propriété exclusive de Maria Group, sauf mention contraire. Toute reproduction, totale ou partielle, sans autorisation préalable écrite est interdite.</p>
 
         <h2>Données personnelles</h2>
-        <p>Les informations transmises via le formulaire de contact sont utilisées uniquement pour répondre à votre demande et ne sont jamais cédées à des tiers. Vous disposez d'un droit d'accès, de rectification et de suppression de vos données en écrivant à <a href="mailto:{EMAIL}">{EMAIL}</a>.</p>
+        <p>Les informations transmises via le formulaire de contact sont enregistrées dans notre base de données, utilisées uniquement pour répondre à votre demande et ne sont jamais cédées à des tiers. Vous disposez d'un droit d'accès, de rectification et de suppression de vos données en écrivant à <a href="mailto:{EMAIL}">{EMAIL}</a>.</p>
 
         <h2>Cookies</h2>
-        <p>Ce site n'utilise pas de cookies de suivi publicitaire. Seules des ressources techniques nécessaires à son fonctionnement (polices de caractères) peuvent être chargées.</p>
+        <p>Ce site n'utilise aucun cookie et ne fait appel à aucun service tiers de suivi : toutes ses ressources, y compris les polices de caractères, sont hébergées sur nos serveurs.</p>
       </div>
     </section>
 '''

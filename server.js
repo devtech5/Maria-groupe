@@ -76,15 +76,26 @@ function validateContact(body) {
   return { data, errors };
 }
 
-/* Limite simple : 5 envois par adresse IP toutes les 10 minutes. */
+/* Limite simple : 5 envois par adresse IP toutes les 10 minutes.
+   Le nombre d'adresses suivies est plafonné pour borner la mémoire utilisée. */
 const RATE_WINDOW_MS = 10 * 60 * 1000;
 const RATE_MAX = 5;
+const RATE_MAX_TRACKED = 10000;
 const hits = new Map();
+
+function purgeExpired(now) {
+  for (const [ip, entry] of hits) if (entry.reset < now) hits.delete(ip);
+}
 
 function rateLimited(ip) {
   const now = Date.now();
   const entry = hits.get(ip);
   if (!entry || entry.reset < now) {
+    if (!entry && hits.size >= RATE_MAX_TRACKED) {
+      purgeExpired(now);
+      // Toujours plein : on oublie l'adresse la plus ancienne (ordre d'insertion).
+      if (hits.size >= RATE_MAX_TRACKED) hits.delete(hits.keys().next().value);
+    }
     hits.set(ip, { count: 1, reset: now + RATE_WINDOW_MS });
     return false;
   }
@@ -92,10 +103,7 @@ function rateLimited(ip) {
   return entry.count > RATE_MAX;
 }
 
-setInterval(() => {
-  const now = Date.now();
-  for (const [ip, entry] of hits) if (entry.reset < now) hits.delete(ip);
-}, RATE_WINDOW_MS).unref();
+setInterval(() => purgeExpired(Date.now()), RATE_WINDOW_MS).unref();
 
 /* ------------------------------------------------------------------ */
 /* Application                                                         */
@@ -105,12 +113,31 @@ app.disable("x-powered-by");
 app.set("trust proxy", 1); // derrière le proxy Traefik de Dokploy
 
 app.use(compression());
+/* En-têtes de sécurité. Toutes les ressources du site sont servies par ce serveur. */
+const CSP = [
+  "default-src 'self'",
+  "script-src 'self'",
+  "style-src 'self' 'unsafe-inline'", // attributs style="--card-img: …" des photos optionnelles
+  "img-src 'self' data:",
+  "font-src 'self'",
+  "connect-src 'self'",
+  "form-action 'self'",
+  "frame-ancestors 'self'",
+  "base-uri 'self'",
+  "object-src 'none'",
+].join("; ");
+
 app.use((req, res, next) => {
   res.set({
+    "Content-Security-Policy": CSP,
     "X-Content-Type-Options": "nosniff",
     "X-Frame-Options": "SAMEORIGIN",
     "Referrer-Policy": "strict-origin-when-cross-origin",
+    "Permissions-Policy": "camera=(), microphone=(), geolocation=(), payment=(), usb=()",
+    "Cross-Origin-Opener-Policy": "same-origin",
   });
+  // HSTS uniquement en HTTPS (le proxy Traefik transmet X-Forwarded-Proto).
+  if (req.secure) res.set("Strict-Transport-Security", "max-age=31536000");
   next();
 });
 
