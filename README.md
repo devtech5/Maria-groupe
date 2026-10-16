@@ -1,6 +1,6 @@
 # Maria Group — site vitrine
 
-Site internet de **Maria Group**, groupe actif dans le **BTP**, les **Mines** et le **Transport**.
+Site internet de **Maria Group** et de ses filiales **Maria BTP** (bâtiment et travaux publics) et **Maria Gold** (exploration et exploitation aurifère).
 
 Site statique (HTML / CSS / JavaScript, sans dépendance) : il peut être hébergé tel quel sur GitHub Pages, Netlify, un hébergement mutualisé, etc.
 
@@ -15,19 +15,20 @@ Site statique (HTML / CSS / JavaScript, sans dépendance) : il peut être héber
 
 Les couleurs sont définies une seule fois, en variables CSS, en haut de `assets/css/style.css`.
 
-## Pages
+## Menu et pages
 
-| Fichier | Contenu |
-|---|---|
-| `index.html` | Accueil : présentation, 3 pôles, chiffres clés, valeurs, méthode, réalisations |
-| `groupe.html` | Le Groupe : histoire, mission / vision, valeurs, engagement QHSE |
-| `btp.html` | Pôle BTP : services, moyens, démarche, exemples de projets |
-| `mines.html` | Pôle Mines |
-| `transport.html` | Pôle Transport |
-| `realisations.html` | Réalisations filtrables par pôle |
-| `contact.html` | Coordonnées et formulaire de demande de devis |
-| `mentions-legales.html` | Mentions légales (à compléter) |
-| `404.html` | Page introuvable |
+- **Accueil** — `index.html`
+- **Maria Group** (sous-menu)
+  - Qui sommes-nous — `groupe.html` (histoire, mission / vision, filiales, valeurs, engagement QHSE)
+  - Maria BTP — `btp.html`
+  - Maria Gold — `gold.html`
+- **Projets** — `projets.html` (projets en cours / en préparation, filtrables par filiale)
+- **Réalisations** — `realisations.html` (projets livrés, filtrables par filiale)
+- **Contacts** — `contact.html` (coordonnées, WhatsApp, formulaire de demande de devis)
+
+Autres pages : `mentions-legales.html`, `404.html`.
+
+Le menu se modifie dans la liste `NAV` de `tools/build.py`.
 
 ## Structure
 
@@ -58,8 +59,8 @@ Python 3 suffit, aucune bibliothèque n'est nécessaire.
 
 ## À compléter avant la mise en ligne
 
-- **Coordonnées** : téléphone, e-mail, adresse, horaires, liens réseaux sociaux et WhatsApp (en haut de `tools/build.py`).
-- **Réalisations** : les cartes actuelles décrivent des *types* de projets. Les remplacer par vos projets réels (liste `PROJECTS` dans `tools/build.py`).
+- **Coordonnées** : e-mail, mobile et fixe sont renseignés. Restent à compléter : adresse, horaires, liens réseaux sociaux (en haut de `tools/build.py`).
+- **Projets et réalisations** : les cartes actuelles sont des exemples génériques. Les remplacer par vos projets réels (listes `PROJETS` et `REALISATIONS` dans `tools/build.py`).
 - **Mentions légales** : forme juridique, RCCM, hébergeur, directeur de publication.
 - **Formulaire de contact** : par défaut, il ouvre le logiciel de messagerie du visiteur. Pour recevoir les messages directement, créer un formulaire sur un service comme [Formspree](https://formspree.io) puis renseigner son URL dans l'attribut `data-endpoint` du formulaire (`tools/build.py`, section CONTACT).
 
@@ -70,8 +71,9 @@ Le site fonctionne sans photo (illustrations dorées sur fond bleu). Pour ajoute
 | Fichier | Emplacement |
 |---|---|
 | `hero.jpg` | Grande bannière de l'accueil |
-| `btp.jpg`, `mines.jpg`, `transport.jpg` | Cartes des pôles et visuels des pages pôles |
-| `projet-1.jpg` … `projet-9.jpg` | Cartes de réalisations (dans l'ordre de la liste `PROJECTS`) |
+| `btp.jpg`, `gold.jpg` | Cartes des filiales et visuels des pages Maria BTP / Maria Gold |
+| `projet-1.jpg` … `projet-6.jpg` | Cartes de la page Projets (ordre de la liste `PROJETS`) |
+| `realisation-1.jpg` … `realisation-6.jpg` | Cartes de la page Réalisations (ordre de la liste `REALISATIONS`) |
 
 Un filtre bleu est appliqué automatiquement pour garder la cohérence avec la charte. Format conseillé : JPG, 1600 px de large maximum, moins de 400 Ko.
 

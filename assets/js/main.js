@@ -33,6 +33,33 @@
     });
   }
 
+  /* ---- Sous-menus ---- */
+  var subs = document.querySelectorAll(".has-sub");
+  function closeSubs(except) {
+    subs.forEach(function (li) {
+      if (li === except) return;
+      li.classList.remove("is-open");
+      var b = li.querySelector(".sub-toggle");
+      if (b) b.setAttribute("aria-expanded", "false");
+    });
+  }
+  subs.forEach(function (li) {
+    var btn = li.querySelector(".sub-toggle");
+    if (!btn) return;
+    btn.addEventListener("click", function (e) {
+      e.stopPropagation();
+      var open = li.classList.toggle("is-open");
+      btn.setAttribute("aria-expanded", open ? "true" : "false");
+      closeSubs(li);
+    });
+  });
+  document.addEventListener("click", function (e) {
+    if (!e.target.closest(".has-sub")) closeSubs();
+  });
+  document.addEventListener("keydown", function (e) {
+    if (e.key === "Escape") closeSubs();
+  });
+
   /* ---- En-tête au défilement + bouton retour en haut ---- */
   function onScroll() {
     var y = window.scrollY || window.pageYOffset;

@@ -5,6 +5,8 @@ def _svg(inner, vb="0 0 24 24"):
             f'stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">{inner}</svg>')
 
 I = {
+    "chevron": _svg('<path d="M6 9l6 6 6-6"/>'),
+    "ingot": _svg('<path d="M2 20l2.5-5h7L14 20zM10 20l2.5-5h7L22 20zM6 15l2.5-5h7L18 15"/><path d="M19 3v3M17.5 4.5h3"/>'),
     "arrow": _svg('<path d="M5 12h14M13 6l6 6-6 6"/>'),
     "up": _svg('<path d="M12 19V5M6 11l6-6 6 6"/>'),
     "check": _svg('<path d="M5 12.5l4.5 4.5L19 7.5"/>'),
@@ -57,23 +59,14 @@ ILLUS = {
   <path d="M22 150V14M22 14h110M22 14l-12 12M22 32l18-18M40 14l-18 18M58 14L40 32M76 14L58 32"/>
   <path d="M110 14v26M104 40h12v10h-12z" opacity=".8"/>
 </svg>''',
-    "mines": '''<svg class="pole-illus" viewBox="0 0 200 160" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+    "gold": '''<svg class="pole-illus" viewBox="0 0 200 160" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
   <path d="M6 150h188"/>
-  <path d="M10 150l52-92 30 46 22-30 60 76"/>
-  <path d="M52 76l10-18 10 14"/>
-  <path d="M70 150v-24a18 18 0 0 1 36 0v24"/>
-  <path d="M128 116h40l-6 22h-28z"/><circle cx="138" cy="144" r="5"/><circle cx="158" cy="144" r="5"/>
-  <path d="M136 116l6-10 8 6 6-8 8 12"/>
-  <path d="M148 30L118 60M126 22c10-4 26-2 34 8M156 52c4-10 2-26-8-34"/>
-</svg>''',
-    "transport": '''<svg class="pole-illus" viewBox="0 0 200 160" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
-  <path d="M4 140h192"/>
-  <path d="M20 54h104v70H20z"/>
-  <path d="M36 54v70M52 54v70M68 54v70M84 54v70M100 54v70" opacity=".55"/>
-  <path d="M124 72h34l22 26v26h-56z"/><path d="M132 80h22l14 16h-36z"/>
-  <path d="M20 124h160"/>
-  <circle cx="44" cy="128" r="12"/><circle cx="76" cy="128" r="12"/><circle cx="154" cy="128" r="12"/>
-  <path d="M10 34h40M24 22h50M150 40h30" opacity=".6"/>
+  <path d="M10 150l46-84 28 40 20-26 40 70"/>
+  <path d="M46 84l10-18 10 14"/>
+  <path d="M58 150v-22a16 16 0 0 1 32 0v22"/>
+  <path d="M146 150l4-12h16l4 12zM172 150l4-12h16l4 12zM159 138l4-12h16l4 12z"/>
+  <path d="M188 104v12M182 110h12M140 112v8M136 116h8" opacity=".8"/>
+  <path d="M152 34L124 62M130 26c10-4 24-2 32 8M160 56c4-10 2-24-8-32"/>
 </svg>''',
 }
 
