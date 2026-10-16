@@ -4,24 +4,6 @@
    Couleur secondaire : #BFA169 (or)
    ========================================================================== */
 
-/* Polices hébergées sur le site (SIL Open Font License, voir assets/fonts/) */
-@font-face {
-  font-family: "Montserrat";
-  font-style: normal;
-  font-display: swap;
-  font-weight: 100 900;
-  src: url("../fonts/montserrat-latin.woff2") format("woff2");
-  unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+0304, U+0308, U+0329, U+2000-206F, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD;
-}
-@font-face {
-  font-family: "Open Sans";
-  font-style: normal;
-  font-display: swap;
-  font-weight: 300 800;
-  src: url("../fonts/open-sans-latin.woff2") format("woff2");
-  unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+0304, U+0308, U+0329, U+2000-206F, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD;
-}
-
 :root {
   --primary: #162E49;
   --primary-700: #10233a;
@@ -37,8 +19,8 @@
   --bg: #ffffff;
   --bg-soft: #f7f8fa;
 
-  --font-head: "Montserrat", system-ui, -apple-system, "Segoe UI", sans-serif;
-  --font-body: "Open Sans", system-ui, -apple-system, "Segoe UI", sans-serif;
+  --font-head: var(--font-montserrat), "Montserrat", system-ui, -apple-system, "Segoe UI", sans-serif;
+  --font-body: var(--font-open-sans), "Open Sans", system-ui, -apple-system, "Segoe UI", sans-serif;
 
   --radius: 6px;
   --radius-lg: 14px;
@@ -726,7 +708,7 @@ p  { margin: 0 0 1em; }
   content: "";
   position: absolute;
   inset: 0;
-  background: url("../img/logo-mark-white.png") no-repeat right -60px center / 380px auto;
+  background: url("/assets/img/logo-mark-white.png") no-repeat right -60px center / 380px auto;
   opacity: .12;
   z-index: -1;
 }
@@ -803,7 +785,7 @@ p  { margin: 0 0 1em; }
   bottom: -80px;
   width: 280px;
   height: 280px;
-  background: url("../img/logo-mark-white.png") no-repeat center / contain;
+  background: url("/assets/img/logo-mark-white.png") no-repeat center / contain;
   opacity: .07;
   z-index: -1;
 }
@@ -1302,3 +1284,6 @@ p  { margin: 0 0 1em; }
 
 .form-title { font-size: 1.6rem; }
 .muted .req { color: var(--secondary-600); }
+
+.project-meta { margin-top: 10px !important; font-size: .82rem !important; color: var(--secondary-600) !important; font-weight: 600; }
+.empty-state { text-align: center; }

@@ -1,6 +1,8 @@
 .git
 .gitignore
-README.md
-tools
+.next
 node_modules
+README.md
+.env
+.env*.local
 **/__pycache__
