@@ -1,0 +1,19 @@
+{
+  "name": "maria-group-site",
+  "version": "1.0.0",
+  "private": true,
+  "description": "Site Maria Group : pages statiques et API du formulaire de contact (PostgreSQL)",
+  "main": "server.js",
+  "scripts": {
+    "start": "node server.js",
+    "build": "python3 tools/build.py"
+  },
+  "engines": {
+    "node": ">=20"
+  },
+  "dependencies": {
+    "compression": "1.8.2",
+    "express": "5.2.1",
+    "pg": "8.23.1"
+  }
+}

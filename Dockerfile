@@ -1,12 +1,21 @@
-# Site statique Maria Group servi par Nginx (déploiement Dokploy)
-FROM nginx:1.27-alpine
+# Site Maria Group : pages statiques + API du formulaire (PostgreSQL)
+FROM node:22-alpine
 
-COPY deploy/nginx.conf /etc/nginx/conf.d/default.conf
+ENV NODE_ENV=production \
+    PORT=3000
+WORKDIR /app
 
-COPY *.html /usr/share/nginx/html/
-COPY assets /usr/share/nginx/html/assets
+COPY package.json package-lock.json ./
+RUN npm ci --omit=dev && npm cache clean --force
 
-EXPOSE 80
+COPY server.js ./
+COPY db ./db
+COPY public ./public
 
-HEALTHCHECK --interval=30s --timeout=3s --retries=3 \
-  CMD wget -q -O /dev/null http://127.0.0.1/ || exit 1
+USER node
+EXPOSE 3000
+
+HEALTHCHECK --interval=30s --timeout=3s --start-period=10s --retries=3 \
+  CMD wget -q -O /dev/null http://127.0.0.1:3000/healthz || exit 1
+
+CMD ["node", "server.js"]

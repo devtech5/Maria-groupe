@@ -1,14 +1,14 @@
 """Générateur des pages du site Maria Group.
 
 Usage : python3 tools/build.py
-Les pages HTML sont écrites à la racine du dépôt.
+Les pages HTML sont écrites dans public/.
 """
 import sys, os
 sys.path.insert(0, os.path.dirname(__file__))
 from icons import I, ILLUS, PATTERN
 
-# Dossier de sortie : racine du dépôt (par défaut)
-OUT = sys.argv[1] if len(sys.argv) > 1 else os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
+# Dossier de sortie : public/ (par défaut)
+OUT = sys.argv[1] if len(sys.argv) > 1 else os.path.join(os.path.dirname(os.path.dirname(os.path.abspath(__file__))), "public")
 
 # ---- Coordonnées ----
 MOBILE = "+225 07 00 00 00 00"
@@ -823,8 +823,8 @@ contact = page_hero("Contacts", "Parlons de votre projet",
           <span class="eyebrow">Formulaire</span>
           <h2 style="font-size:1.6rem">Demande de devis ou d'information</h2>
           <p class="muted">Les champs marqués d'un <span style="color:var(--secondary-600)">*</span> sont obligatoires.</p>
-          <!-- Pour recevoir les messages sans logiciel de messagerie, renseignez data-endpoint (ex. https://formspree.io/f/XXXX) -->
-          <form id="contact-form" novalidate data-endpoint="" data-mailto="{EMAIL}">
+          <!-- Les messages sont envoyés à l'API du serveur (server.js) et enregistrés dans PostgreSQL. -->
+          <form id="contact-form" novalidate data-endpoint="/api/contact" data-mailto="{EMAIL}">
             <div class="form-grid">
               <div class="field">
                 <label for="nom">Nom &amp; prénom <span class="req">*</span></label>

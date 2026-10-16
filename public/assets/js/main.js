@@ -181,16 +181,22 @@
         if (firstErr) firstErr.focus();
         return;
       }
-      if (form.querySelector(".hp-field input").value) return; // anti-spam
 
       var data = new FormData(form);
       var endpoint = form.getAttribute("data-endpoint");
 
       if (endpoint) {
-        /* Envoi via un service de formulaire (ex. Formspree) */
+        /* Envoi à l'API du site (enregistrement en base PostgreSQL) */
         var btn = form.querySelector("button[type=submit]");
         btn.disabled = true;
-        fetch(endpoint, { method: "POST", body: data, headers: { Accept: "application/json" } })
+        var payload = {};
+        data.forEach(function (value, key) { payload[key] = value; });
+        payload.consent = form.querySelector("#consent").checked;
+        fetch(endpoint, {
+          method: "POST",
+          body: JSON.stringify(payload),
+          headers: { "Content-Type": "application/json", Accept: "application/json" }
+        })
           .then(function (r) {
             if (!r.ok) throw new Error();
             form.reset();

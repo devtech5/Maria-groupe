@@ -109,8 +109,8 @@
           <span class="eyebrow">Formulaire</span>
           <h2 style="font-size:1.6rem">Demande de devis ou d'information</h2>
           <p class="muted">Les champs marqués d'un <span style="color:var(--secondary-600)">*</span> sont obligatoires.</p>
-          <!-- Pour recevoir les messages sans logiciel de messagerie, renseignez data-endpoint (ex. https://formspree.io/f/XXXX) -->
-          <form id="contact-form" novalidate data-endpoint="" data-mailto="hello@maria-groupe.com">
+          <!-- Les messages sont envoyés à l'API du serveur (server.js) et enregistrés dans PostgreSQL. -->
+          <form id="contact-form" novalidate data-endpoint="/api/contact" data-mailto="hello@maria-groupe.com">
             <div class="form-grid">
               <div class="field">
                 <label for="nom">Nom &amp; prénom <span class="req">*</span></label>
