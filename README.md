@@ -85,6 +85,26 @@ python3 -m http.server 8000
 
 puis ouvrir <http://localhost:8000>.
 
+## Déploiement avec Dokploy (VPS)
+
+Le dépôt contient un `Dockerfile` (Nginx) et sa configuration `deploy/nginx.conf` : URLs propres (`/btp` sert `btp.html`), page 404 personnalisée, compression gzip, cache des ressources statiques et en-têtes de sécurité. Les fichiers `tools/` et `README.md` ne sont pas publiés.
+
+Dans Dokploy :
+
+1. **Create Project**, puis **Create Service → Application**.
+2. Onglet **General**, source **GitHub** : dépôt `devtech5/Maria-groupe`, branche `main`.
+3. **Build Type : Dockerfile** (chemin `Dockerfile`, contexte `.`), puis **Save**.
+4. Onglet **Domains** : ajouter votre domaine (ex. `maria-groupe.com` et `www.maria-groupe.com`), **Container Port : 80**, **HTTPS** activé avec **Let's Encrypt**.
+5. Chez votre registrar (Hostinger), créer un enregistrement DNS **A** pour `@` et `www` pointant vers l'adresse IP du VPS.
+6. **Deploy**. Activez **Auto Deploy** pour redéployer à chaque push sur `main`.
+
+Pour tester l'image localement :
+
+```bash
+docker build -t maria-site .
+docker run --rm -p 8080:80 maria-site
+```
+
 ## Mise en ligne avec GitHub Pages
 
 Dans le dépôt GitHub : **Settings → Pages → Source : Deploy from a branch**, choisir la branche et le dossier `/ (root)`.
